@@ -2,10 +2,10 @@
 -- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jun 16, 2019 at 04:22 AM
--- Server version: 10.1.40-MariaDB
--- PHP Version: 7.3.5
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 12-08-2019 a las 03:31:03
+-- Versión del servidor: 10.1.40-MariaDB
+-- Versión de PHP: 7.3.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,13 +19,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `system`
+-- Base de datos: `system`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `categories`
+-- Estructura de tabla para la tabla `categories`
 --
 
 CREATE TABLE `categories` (
@@ -36,7 +36,7 @@ CREATE TABLE `categories` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `categories`
+-- Volcado de datos para la tabla `categories`
 --
 
 INSERT INTO `categories` (`categories_id`, `categories_name`, `categories_active`, `categories_status`) VALUES
@@ -45,7 +45,7 @@ INSERT INTO `categories` (`categories_id`, `categories_name`, `categories_active
 -- --------------------------------------------------------
 
 --
--- Table structure for table `costumers`
+-- Estructura de tabla para la tabla `costumers`
 --
 
 CREATE TABLE `costumers` (
@@ -66,7 +66,7 @@ CREATE TABLE `costumers` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `costumers`
+-- Volcado de datos para la tabla `costumers`
 --
 
 INSERT INTO `costumers` (`cost_id`, `cost_code`, `cost_nit`, `cost_name`, `cost_phone`, `cost_email`, `cost_address`, `cost_contact`, `cost_city`, `cost_departament`, `cost_credit`, `cost_date`, `cost_active`, `cost_status`) VALUES
@@ -76,7 +76,7 @@ INSERT INTO `costumers` (`cost_id`, `cost_code`, `cost_nit`, `cost_name`, `cost_
 -- --------------------------------------------------------
 
 --
--- Table structure for table `credits`
+-- Estructura de tabla para la tabla `credits`
 --
 
 CREATE TABLE `credits` (
@@ -94,7 +94,7 @@ CREATE TABLE `credits` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `credits`
+-- Volcado de datos para la tabla `credits`
 --
 
 INSERT INTO `credits` (`credit_id`, `credit_date`, `costumer`, `quantity`, `payment_status`, `delivery_status`, `payment_type`, `credit_description`, `credit_total`, `credit_active`, `credit_status`) VALUES
@@ -105,7 +105,7 @@ INSERT INTO `credits` (`credit_id`, `credit_date`, `costumer`, `quantity`, `paym
 -- --------------------------------------------------------
 
 --
--- Table structure for table `credit_item`
+-- Estructura de tabla para la tabla `credit_item`
 --
 
 CREATE TABLE `credit_item` (
@@ -122,60 +122,31 @@ CREATE TABLE `credit_item` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kardex`
+-- Estructura de tabla para la tabla `kardex`
 --
 
 CREATE TABLE `kardex` (
   `kardex_id` int(11) NOT NULL,
   `kardex_concept` varchar(100) NOT NULL,
-  `kardex_date` date NOT NULL,
+  `kardex_date` datetime NOT NULL,
   `quantity` int(11) NOT NULL,
   `balance` varchar(10) NOT NULL,
   `product_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `kardex`
+-- Volcado de datos para la tabla `kardex`
 --
 
 INSERT INTO `kardex` (`kardex_id`, `kardex_concept`, `kardex_date`, `quantity`, `balance`, `product_id`) VALUES
-(13, 'Inicio en inventario', '0000-00-00', 123, '0', 21),
-(14, 'Ingreso a fac fiscal', '2019-03-18', 123, '-2', 21),
-(15, 'Ingreso a fac fiscal', '2019-03-18', 121, '-2', 21),
-(16, 'Ingreso a fac fiscal', '2019-03-18', 119, '-1', 21),
-(17, 'Ingreso a fac fiscal', '2019-03-18', 118, '-1', 21),
-(18, 'Ingreso a fac fiscal', '2019-03-18', 117, '-1', 21),
-(19, 'Ingreso a fac fiscal', '2019-03-18', 116, '-2', 21),
-(20, 'Inicio en inventario', '0000-00-00', 231, '0', 22),
-(21, 'Ingreso a fac fiscal', '2019-03-19', 231, '-1', 22),
-(22, 'Ingreso a fac fiscal', '2019-03-19', 105, '-5', 21),
-(23, 'Ingreso a fac fiscal', '2019-03-19', 230, '-5', 22),
-(24, 'Ingreso a fac fiscal', '2019-03-19', 100, '-100', 21),
-(25, 'Ingreso a fac fiscal', '2019-03-19', 225, '-255', 22),
-(26, 'Ingreso a fac fiscal', '2019-03-19', 0, '-10', 21),
-(27, 'Ingreso a fac fiscal', '2019-03-19', -30, '-5', 22),
-(28, 'Compra', '2019-03-20', -10, '+2', 21),
-(29, 'Compra', '2019-03-20', -8, '+2', 21),
-(30, 'Compra', '2019-03-20', -6, '+55', 21),
-(31, 'Ingreso a fac fiscal', '2019-03-20', 49, '-2', 21),
-(32, 'Ingreso a fac fiscal', '2019-03-20', -35, '-5', 22),
-(33, 'Ingreso a fac fiscal', '2019-03-20', 47, '-2', 21),
-(34, 'Ingreso a fac fiscal', '2019-03-20', -40, '-5', 22),
-(35, 'Ingreso a fac fiscal', '2019-03-20', 45, '-100', 21),
-(36, 'Ingreso a fac fiscal', '2019-03-20', -45, '-500', 22),
-(37, 'Ingreso a fac fiscal', '2019-03-20', -55, '-100', 21),
-(38, 'Ingreso a fac fiscal', '2019-03-20', -545, '-500', 22),
-(39, 'Compra', '2019-03-20', -101, '+54', 21),
-(40, 'Compra', '2019-03-20', -47, '+45', 21),
-(41, 'Compra', '2019-03-20', -1045, '+100', 22),
-(42, 'Compra', '2019-03-21', -2, '+100', 21),
-(43, 'Inicio en inventario', '0000-00-00', 21, '0', 23),
-(44, 'Ingreso a factura', '2019-06-09', 98, '-1', 21);
+(48, 'Inicio en inventario', '2019-08-03 05:18:44', 21, '0', 1),
+(49, 'Inicio en inventario', '2019-08-03 05:19:26', 321, '0', 2),
+(50, 'Inicio en inventario', '2019-08-05 01:18:17', 12, '0', 3);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `product`
+-- Estructura de tabla para la tabla `product`
 --
 
 CREATE TABLE `product` (
@@ -201,18 +172,18 @@ CREATE TABLE `product` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `product`
+-- Volcado de datos para la tabla `product`
 --
 
 INSERT INTO `product` (`product_id`, `product_cod`, `product_name`, `product_image`, `provider_id`, `categories_id`, `price1`, `price2`, `price3`, `price4`, `utility1`, `utility2`, `utility3`, `utility4`, `purchase_price`, `quantity`, `product_type`, `product_active`, `product_status`) VALUES
-(21, 'abc', 'wdqwdq', '../assests/images/stock/6505663905c8c5b81813bd.jpg', 6, 6, 226, 55423, 52757, 524, 10, 55207, 52541, 308, 216, '97', '1', 1, 1),
-(22, 'cde', 'dasdsad', '../assests/images/photo_default.png', 6, 6, 333, 0, 0, 0, 21, 0, 0, 0, 312, '2', '1', 1, 1),
-(23, 'dasdas', 'asdasda', '../assests/images/photo_default.png', 6, 6, 212, 22, 0, 0, 191, 1, 0, 0, 21, '21', '1', 1, 1);
+(1, 'FDA01', 'Filtro de aire', '../assests/images/stock/11155912375d44fd143766a.png', 8, 6, 323, 0, 0, 0, 200, 0, 0, 0, 123, '21', '1', 1, 1),
+(2, 'CON01', 'Cono de advertencia', '../assests/images/photo_default.png', 13, 6, 231, 0, 0, 0, 18, 0, 0, 0, 213, '321', '1', 2, 2),
+(3, 'abc', 'sad', '../assests/images/stock/16416645565d48b5eeacc4c.png', 6, 6, 32, 0, 0, 0, 20, 0, 0, 0, 12, '32', '2', 1, 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `providers`
+-- Estructura de tabla para la tabla `providers`
 --
 
 CREATE TABLE `providers` (
@@ -227,7 +198,7 @@ CREATE TABLE `providers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `providers`
+-- Volcado de datos para la tabla `providers`
 --
 
 INSERT INTO `providers` (`prov_id`, `prov_cod`, `prov_name`, `prov_phone`, `prov_nit`, `prov_address`, `prov_active`, `prov_status`) VALUES
@@ -247,7 +218,7 @@ INSERT INTO `providers` (`prov_id`, `prov_cod`, `prov_name`, `prov_phone`, `prov
 -- --------------------------------------------------------
 
 --
--- Table structure for table `purchases`
+-- Estructura de tabla para la tabla `purchases`
 --
 
 CREATE TABLE `purchases` (
@@ -265,7 +236,7 @@ CREATE TABLE `purchases` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `purchases`
+-- Volcado de datos para la tabla `purchases`
 --
 
 INSERT INTO `purchases` (`purchase_id`, `purchase_description`, `provider`, `provider_nit`, `purchase_date`, `quantity`, `total`, `payment_status`, `payment_type`, `delivery_status`, `purchase_active`) VALUES
@@ -274,7 +245,7 @@ INSERT INTO `purchases` (`purchase_id`, `purchase_description`, `provider`, `pro
 -- --------------------------------------------------------
 
 --
--- Table structure for table `purchase_item`
+-- Estructura de tabla para la tabla `purchase_item`
 --
 
 CREATE TABLE `purchase_item` (
@@ -289,7 +260,7 @@ CREATE TABLE `purchase_item` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `purchase_item`
+-- Volcado de datos para la tabla `purchase_item`
 --
 
 INSERT INTO `purchase_item` (`purchase_item_id`, `purchase_id`, `product_code`, `product_name`, `quantity`, `price`, `total`, `purchase_item_active`) VALUES
@@ -302,7 +273,7 @@ INSERT INTO `purchase_item` (`purchase_item_id`, `purchase_id`, `product_code`, 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `quotation`
+-- Estructura de tabla para la tabla `quotation`
 --
 
 CREATE TABLE `quotation` (
@@ -318,7 +289,7 @@ CREATE TABLE `quotation` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `quotation_item`
+-- Estructura de tabla para la tabla `quotation_item`
 --
 
 CREATE TABLE `quotation_item` (
@@ -335,7 +306,7 @@ CREATE TABLE `quotation_item` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `returns`
+-- Estructura de tabla para la tabla `returns`
 --
 
 CREATE TABLE `returns` (
@@ -350,7 +321,7 @@ CREATE TABLE `returns` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sales`
+-- Estructura de tabla para la tabla `sales`
 --
 
 CREATE TABLE `sales` (
@@ -365,7 +336,7 @@ CREATE TABLE `sales` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `sales`
+-- Volcado de datos para la tabla `sales`
 --
 
 INSERT INTO `sales` (`sale_id`, `sale_date`, `client_name`, `sub_total`, `sale_discount`, `payment_status`, `sale_total`, `sale_active`) VALUES
@@ -375,7 +346,7 @@ INSERT INTO `sales` (`sale_id`, `sale_date`, `client_name`, `sub_total`, `sale_d
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sale_item`
+-- Estructura de tabla para la tabla `sale_item`
 --
 
 CREATE TABLE `sale_item` (
@@ -389,7 +360,7 @@ CREATE TABLE `sale_item` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `sale_item`
+-- Volcado de datos para la tabla `sale_item`
 --
 
 INSERT INTO `sale_item` (`sale_item_id`, `sale_id`, `product_id`, `quantity`, `price`, `total`, `sale_item_active`) VALUES
@@ -399,7 +370,7 @@ INSERT INTO `sale_item` (`sale_item_id`, `sale_id`, `product_id`, `quantity`, `p
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tmp`
+-- Estructura de tabla para la tabla `tmp`
 --
 
 CREATE TABLE `tmp` (
@@ -414,207 +385,208 @@ CREATE TABLE `tmp` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Estructura de tabla para la tabla `users`
 --
 
 CREATE TABLE `users` (
   `user_id` int(11) NOT NULL,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL
+  `email` varchar(255) NOT NULL,
+  `last_login` varchar(64) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `users`
+-- Volcado de datos para la tabla `users`
 --
 
-INSERT INTO `users` (`user_id`, `username`, `password`, `email`) VALUES
-(1, 'admin', '21232f297a57a5a743894a0e4a801fc3', '');
+INSERT INTO `users` (`user_id`, `username`, `password`, `email`, `last_login`) VALUES
+(1, 'admin', '827ccb0eea8a706c4c34a16891f84e7b', '', '2019-08-05 22:58:31');
 
 --
--- Indexes for dumped tables
+-- Índices para tablas volcadas
 --
 
 --
--- Indexes for table `categories`
+-- Indices de la tabla `categories`
 --
 ALTER TABLE `categories`
   ADD PRIMARY KEY (`categories_id`);
 
 --
--- Indexes for table `costumers`
+-- Indices de la tabla `costumers`
 --
 ALTER TABLE `costumers`
   ADD PRIMARY KEY (`cost_id`);
 
 --
--- Indexes for table `credits`
+-- Indices de la tabla `credits`
 --
 ALTER TABLE `credits`
   ADD PRIMARY KEY (`credit_id`);
 
 --
--- Indexes for table `credit_item`
+-- Indices de la tabla `credit_item`
 --
 ALTER TABLE `credit_item`
   ADD PRIMARY KEY (`credit_item_id`);
 
 --
--- Indexes for table `kardex`
+-- Indices de la tabla `kardex`
 --
 ALTER TABLE `kardex`
   ADD PRIMARY KEY (`kardex_id`);
 
 --
--- Indexes for table `product`
+-- Indices de la tabla `product`
 --
 ALTER TABLE `product`
   ADD PRIMARY KEY (`product_id`);
 
 --
--- Indexes for table `providers`
+-- Indices de la tabla `providers`
 --
 ALTER TABLE `providers`
   ADD PRIMARY KEY (`prov_id`);
 
 --
--- Indexes for table `purchases`
+-- Indices de la tabla `purchases`
 --
 ALTER TABLE `purchases`
   ADD PRIMARY KEY (`purchase_id`);
 
 --
--- Indexes for table `purchase_item`
+-- Indices de la tabla `purchase_item`
 --
 ALTER TABLE `purchase_item`
   ADD PRIMARY KEY (`purchase_item_id`);
 
 --
--- Indexes for table `quotation`
+-- Indices de la tabla `quotation`
 --
 ALTER TABLE `quotation`
   ADD PRIMARY KEY (`quotation_id`);
 
 --
--- Indexes for table `quotation_item`
+-- Indices de la tabla `quotation_item`
 --
 ALTER TABLE `quotation_item`
   ADD PRIMARY KEY (`quotation_item_id`);
 
 --
--- Indexes for table `returns`
+-- Indices de la tabla `returns`
 --
 ALTER TABLE `returns`
   ADD PRIMARY KEY (`return_id`);
 
 --
--- Indexes for table `sales`
+-- Indices de la tabla `sales`
 --
 ALTER TABLE `sales`
   ADD PRIMARY KEY (`sale_id`);
 
 --
--- Indexes for table `sale_item`
+-- Indices de la tabla `sale_item`
 --
 ALTER TABLE `sale_item`
   ADD PRIMARY KEY (`sale_item_id`);
 
 --
--- Indexes for table `tmp`
+-- Indices de la tabla `tmp`
 --
 ALTER TABLE `tmp`
   ADD PRIMARY KEY (`tmp_id`);
 
 --
--- Indexes for table `users`
+-- Indices de la tabla `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`user_id`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT de las tablas volcadas
 --
 
 --
--- AUTO_INCREMENT for table `categories`
+-- AUTO_INCREMENT de la tabla `categories`
 --
 ALTER TABLE `categories`
   MODIFY `categories_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT for table `costumers`
+-- AUTO_INCREMENT de la tabla `costumers`
 --
 ALTER TABLE `costumers`
   MODIFY `cost_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `credits`
+-- AUTO_INCREMENT de la tabla `credits`
 --
 ALTER TABLE `credits`
   MODIFY `credit_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `credit_item`
+-- AUTO_INCREMENT de la tabla `credit_item`
 --
 ALTER TABLE `credit_item`
   MODIFY `credit_item_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `kardex`
+-- AUTO_INCREMENT de la tabla `kardex`
 --
 ALTER TABLE `kardex`
-  MODIFY `kardex_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `kardex_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
--- AUTO_INCREMENT for table `product`
+-- AUTO_INCREMENT de la tabla `product`
 --
 ALTER TABLE `product`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `providers`
+-- AUTO_INCREMENT de la tabla `providers`
 --
 ALTER TABLE `providers`
   MODIFY `prov_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
--- AUTO_INCREMENT for table `purchases`
+-- AUTO_INCREMENT de la tabla `purchases`
 --
 ALTER TABLE `purchases`
   MODIFY `purchase_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `purchase_item`
+-- AUTO_INCREMENT de la tabla `purchase_item`
 --
 ALTER TABLE `purchase_item`
   MODIFY `purchase_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `returns`
+-- AUTO_INCREMENT de la tabla `returns`
 --
 ALTER TABLE `returns`
   MODIFY `return_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `sales`
+-- AUTO_INCREMENT de la tabla `sales`
 --
 ALTER TABLE `sales`
   MODIFY `sale_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `sale_item`
+-- AUTO_INCREMENT de la tabla `sale_item`
 --
 ALTER TABLE `sale_item`
   MODIFY `sale_item_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `tmp`
+-- AUTO_INCREMENT de la tabla `tmp`
 --
 ALTER TABLE `tmp`
   MODIFY `tmp_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
   MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
