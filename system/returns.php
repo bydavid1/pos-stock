@@ -1,6 +1,6 @@
 <?php 
-require_once 'php_action/db_connect.php'; 
-require_once 'includes/header.php';    
+require_once 'includes/load.php';
+require_once 'layouts/header.php';    
 ?>
 	<div class="panel panel-primary">
 			<div class="panel-heading">
@@ -30,7 +30,7 @@ require_once 'includes/header.php';
 			
   </div>
 </div>
-	<?php
-	include("includes/footer.php");
-	?>
-	<script type="text/javascript" src="custom/js/returns.js"></script>
+
+    <script type="text/javascript" src="custom/js/returns.js"></script>
+
+	<?php include("layouts/footer.php");?>

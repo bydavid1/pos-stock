@@ -1,12 +1,11 @@
 <?php
-	require_once 'core.php';
+require_once '../includes/load.php';
 
     $action = (isset($_REQUEST['action'])&& $_REQUEST['action'] !=NULL)?$_REQUEST['action']:'';
 
     if($action == 'ajax'){
-		// escaping, additionally removing everything that could be (html/javascript-) code
-        $q = mysqli_real_escape_string($connect,(strip_tags($_REQUEST['q'], ENT_QUOTES)));
-        $aColumns = array('product_name', 'cod_product');//Columnas de busqueda
+        $q = remove_junk($_REQUEST['q']);
+        $aColumns = array('product_name', 'product_code');//Columnas de busqueda
         $sTable = "product";
         $sWhere = "";
        if ( $_GET['q'] != "" )
@@ -19,23 +18,20 @@
            $sWhere = substr_replace( $sWhere, "", -3 );
            $sWhere .= ')';
        }
-       $sWhere.="order by cod_product";
-       include 'pagination.php'; //include pagination file
-       //pagination variables
+       $sWhere.="order by product_status";
+       include 'pagination.php'; 
        $page = (isset($_REQUEST['page']) && !empty($_REQUEST['page']))?$_REQUEST['page']:1;
-       $per_page = 10; //how much records you want to show
-       $adjacents  = 4; //gap between pages after number of adjacents
+       $per_page = 10; 
+       $adjacents  = 4; 
        $offset = ($page - 1) * $per_page;
-       //Count the total number of row in your table*/
-       $count_query   = mysqli_query($connect, "SELECT count(*) AS numrows FROM $sTable  $sWhere");
-       $row= mysqli_fetch_array($count_query);
+       $count_query = "SELECT count(*) AS numrows FROM product $sWhere";
+       $count_result = $db->query($count_query);
+       $row = $count_result->fetch_array();
        $numrows = $row['numrows'];
        $total_pages = ceil($numrows/$per_page);
        $reload = './kardex.php';
-       //main query to fetch the data
        $sql="SELECT * FROM  $sTable $sWhere LIMIT $offset,$per_page";
-       $query = mysqli_query($connect, $sql);
-       //loop through fetched data
+       $query = $db->query($sql);
        if ($numrows>0){
 
            ?>
@@ -52,10 +48,10 @@
                <?php
                while ($row=mysqli_fetch_array($query)){
                        $product_id = $row['product_id'];
-                       $cod_product=$row['cod_product'];
+                       $cod_product=$row['product_cod'];
                        $produc_name=$row['product_name'];
-                       $active=$row['active'];
-                       $type=$row['type'];
+                       $active=$row['product_status'];
+                       $type=$row['product_type'];
 
                        if($active == 1) {
                         // activate member

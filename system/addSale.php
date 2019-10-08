@@ -1,10 +1,10 @@
 <?php 
-require_once 'php_action/db_connect.php'; 
-require_once 'includes/header.php'; 
+require_once 'includes/load.php';
+require_once 'layouts/header.php';  
 include 'modal/productsOrder.php';
 ?>
 
-<div class='div-request div-hide'>add</div>
+<div class='div-request div-hide'></div>
 
 <ol class="breadcrumb">
   <li><a href="dashboard.php">Inicio</a></li>
@@ -57,4 +57,4 @@ include 'modal/productsOrder.php';
 
           <script src="custom/js/addOrder.js"></script>
 
-            <?php require_once 'includes/footer.php'; ?>
+            <?php require_once 'layouts/footer.php'; ?>

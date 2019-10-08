@@ -1,5 +1,5 @@
-<?php require_once 'includes/header.php'; ?>
-<?php require_once 'php_action/db_connect.php'; ?> 
+<?php require_once 'layouts/header.php'; ?>
+<?php require_once 'includes/load.php'; ?> 
 <?php require_once 'modal/outlayModal.php'; ?>
 
 <div class="row">
@@ -11,34 +11,29 @@
 		</ol>
 
 		<div class="panel panel-primary">
-			<div class="panel-heading">
-				<div class="page-heading"> <i class="glyphicon glyphicon-edit"></i> Listado de compras</div>
-			</div> <!-- /panel-heading -->
-			<div class="panel-body">
+	<div class="panel-heading">
+			<div class="page-heading"> <i class="glyphicon glyphicon-edit"></i> Listado de compras</div>
+	</div> <!-- /panel-heading -->
+		<div class="panel-body">
+		<form class="form-horizontal" role="form" id="orders">
 
-				<div class="remove-messages"></div>
+			<div class="form-group row">
+				<label for="q" class="col-md-2 control-label">Compras</label>
+				<div class="col-md-5">
+					<input type="text" class="form-control" id="q" placeholder="Ingrese el nombre del cliente" onkeyup='load(1);'>
+				</div>
+				<div class="col-md-2">
+					<button type="button" class="btn btn-default" onclick='load(1);'>
+						<span class="glyphicon glyphicon-search" ></span> Buscar</button>
+					<span id="loader"></span>
+				</div>
+			</div>
+		</form>
+			<div id="resultados"></div><!-- Carga los datos ajax -->
+			<div class='outer_div'></div><!-- Carga los datos ajax -->
 
-				<div class="div-action pull pull-right" style="padding-bottom:20px;">
-					<button class="btn btn-default button1" > <i class="glyphicon glyphicon-plus-sign"></i> Agregar compra </button>
-				</div> <!-- /div-action -->				
-				
-				<table class="table" id="manageOutlayTable">
-					<thead>
-						<tr>							
-							<th>#</th>
-							<th>Fecha</th>
-                            <th>Proveedor</th>
-							<th>Cantidad</th>
-							<th>Estado</th>
-							<th>Total</th>
-							<th style="width:15%;">Opciones</th>
-						</tr>
-					</thead>
-				</table>
-				<!-- /table -->
-
-			</div> <!-- /panel-body -->
-		</div> <!-- /panel -->		
+        </div>
+</div>	
 	</div> <!-- /col-md-12 -->
 </div> <!-- /row -->
 
@@ -64,6 +59,8 @@
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 <!-- /remove order-->
-<script src="custom/js/outlay.js"></script>
 
-<?php require_once 'includes/footer.php'; ?>
+<?php require_once 'layouts/footer.php'; ?>
+
+<script src="custom/js/purchase.js"></script>
+

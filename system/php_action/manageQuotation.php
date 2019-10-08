@@ -1,12 +1,12 @@
 <?php
-	require_once 'core.php';
+	require_once '../includes/load.php';
 
 	$action = (isset($_REQUEST['action'])&& $_REQUEST['action'] !=NULL)?$_REQUEST['action']:'';
 	if (isset($_GET['id'])){
 		$id_cliente=intval($_GET['id']);
 
 		$sql= "DELETE FROM clientes WHERE id_cliente='".$id_cliente."'";
-		$res = $connect->query($sql);
+		$res = $db->query($sql);
 			if ($res > 0){
 			?>
 			<div class="alert alert-success alert-dismissible" role="alert">
@@ -26,8 +26,7 @@
 
 	}
 	if($action == 'ajax'){
-		// escaping, additionally removing everything that could be (html/javascript-) code
-         $q = mysqli_real_escape_string($connect,(strip_tags($_REQUEST['q'], ENT_QUOTES)));
+		$q = remove_junk($_REQUEST['q']);//Eliminar caracteres especiales
 		 $aColumns = array('costumer', 'date');//Columnas de busqueda
 		 $sTable = "quotation";
 		 $sWhere = "";
@@ -42,22 +41,19 @@
 			$sWhere .= ')';
 		}
 		$sWhere.=" order by quotation_id";
-		include 'pagination.php'; //include pagination file
-		//pagination variables
+		include 'pagination.php'; 
 		$page = (isset($_REQUEST['page']) && !empty($_REQUEST['page']))?$_REQUEST['page']:1;
-		$per_page = 10; //how much records you want to show
-		$adjacents  = 4; //gap between pages after number of adjacents
+		$per_page = 10; 
+		$adjacents  = 4; 
 		$offset = ($page - 1) * $per_page;
-		//Count the total number of row in your table*/
-		$count_query   = mysqli_query($connect, "SELECT count(*) AS numrows FROM $sTable  $sWhere");
-		$row= mysqli_fetch_array($count_query);
+		$count_query = "SELECT count(*) AS numrows FROM quotation $sWhere";
+		$count_result = $db->query($count_query);
+		$row = $count_result->fetch_array();
 		$numrows = $row['numrows'];
 		$total_pages = ceil($numrows/$per_page);
 		$reload = './quotations.php';
-		//main query to fetch the data
 		$sql="SELECT * FROM  $sTable $sWhere LIMIT $offset,$per_page";
-		$query = mysqli_query($connect, $sql);
-		//loop through fetched data
+		$query = $db->query($sql);
 		if ($numrows>0){
 
 			?>

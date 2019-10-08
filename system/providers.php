@@ -1,4 +1,5 @@
-<?php require_once 'includes/header.php'; ?>
+<?php require_once 'includes/load.php' ?>
+<?php require_once 'layouts/header.php'; ?>
 <?php include('modal/brandModal.php');?>
 
 <div class="row">
@@ -9,35 +10,37 @@
 		  <li class="active">Proveedores</li>
 		</ol>
 
-		<div class="panel panel-primary">
-			<div class="panel-heading">
-				<div class="page-heading"> <i class="glyphicon glyphicon-edit"></i> Listado de proveedores</div>
-			</div> <!-- /panel-heading -->
-			<div class="panel-body">
+	<div class="panel panel-primary">
+		<div class="panel-heading">
+			<div class="page-heading"> <i class="glyphicon glyphicon-edit"></i> Inventario</div>
+		</div> <!-- /panel-heading -->
+		<div class="panel-body">
+		<form class="form-horizontal" role="form" id="products">
 
-				<div class="remove-messages"></div>
+			<div class="form-group row">
+				<label for="q" class="col-md-2 control-label">Proveedores</label>
+				<div class="col-md-5">
+					<input type="text" class="form-control" id="q" placeholder="Ingrese el codigo o nombre del proveedor" onkeyup='load(1);'>
+				</div>
+				<div class="col-md-2">
+					<button type="button" class="btn btn-default" onclick='load(1);'>
+						<span class="glyphicon glyphicon-search" ></span> Buscar</button>
+					<span id="loader"></span>
+				</div>
+				<div class="col-md-2">
+					<button type="button" class="btn btn-success" data-toggle="modal" id="addProviderModalBtn" data-target="#addProviderModal"> <i class="glyphicon glyphicon-plus-sign"></i> Agregar proveedor </button>
+				</div>
 
-				<div class="div-action pull pull-right" style="padding-bottom:20px;">
-					<button class="btn btn-default button1" data-toggle="modal" data-target="#addBrandModel"> <i class="glyphicon glyphicon-plus-sign"></i> Agregar proveedor </button>
-				</div> <!-- /div-action -->				
-				
-				<table class="table" id="manageBrandTable">
-					<thead>
-						<tr>		
-						    <th>Codigo</th>					
-							<th>Nombre</th>
-							<th>Telefono</th>
-							<th>NIT</th>
-							<th>Direccion</th>
-							<th>Estado</th>
-							<th style="width:15%;">Opciones</th>
-						</tr>
-					</thead>
-				</table>
-				<!-- /table -->
+			</div>
 
-			</div> <!-- /panel-body -->
-		</div> <!-- /panel -->		
+
+
+		</form>
+			<div id="resultados"></div><!-- Carga los datos ajax -->
+			<div class='outer_div'></div><!-- Carga los datos ajax -->
+        </div>
+    </div>
+
 	</div> <!-- /col-md-12 -->
 </div> <!-- /row -->
 
@@ -47,6 +50,6 @@
 
 
 
-<script src="custom/js/brand.js"></script>
+<script src="custom/js/provider.js"></script>
 
-<?php require_once 'includes/footer.php'; ?>
+<?php require_once 'layouts/footer.php'; ?>

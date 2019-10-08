@@ -1,13 +1,12 @@
 <?php
 
-require_once 'core.php';
-
+require_once '../includes/load.php';
 	
 	$action = (isset($_REQUEST['action'])&& $_REQUEST['action'] !=NULL)?$_REQUEST['action']:'';
 	if($action == 'ajax'){
-         $q = mysqli_real_escape_string($connect,(strip_tags($_REQUEST['q'], ENT_QUOTES)));
+		 $q = remove_junk($_REQUEST['q']);
 		 $aColumns = array('nombre_cliente');
-		 $sTable = "clientes";
+		 $sTable = "costumers";
 		 $sWhere = "";
 		if ( $_GET['q'] != "" )
 		{
@@ -26,15 +25,15 @@ require_once 'core.php';
 		$per_page = 5; 
 		$adjacents  = 4; 
 		$offset = ($page - 1) * $per_page;
-		$count_query   = mysqli_query($connect, "SELECT count(*) AS numrows FROM $sTable  $sWhere");
-		$row= mysqli_fetch_array($count_query);
+		$count_query = "SELECT count(*) AS numrows FROM costumers $sWhere";
+		$count_result = $db->query($count_query);
+		$row = $count_result->fetch_array();
 		$numrows = $row['numrows'];
 		$total_pages = ceil($numrows/$per_page);
 		$reload = './addReturn.php';
 		$sql="SELECT * FROM  $sTable $sWhere LIMIT $offset,$per_page";
-		$query = mysqli_query($connect, $sql);
+		$query = $db->query($sql);
 		if ($numrows>0){
-			echo $sql;
 			?>
 			<div class="table-responsive">
 			  <table class="table">
@@ -47,11 +46,11 @@ require_once 'core.php';
 				</tr>
 				<?php
 				while ($row=mysqli_fetch_array($query)){
-					$id_cliente=$row['id_cliente'];
-					$nombre_cliente=$row['nombre_cliente'];
-					$telefono_cliente=$row['telefono_cliente'];
-                    $date_added=$row["date_added"];
-                    $direccion_cliente=$row["direccion_cliente"];
+					$id_cliente=$row['cost_id'];
+					$nombre_cliente=$row['cost_name'];
+					$telefono_cliente=$row['cost_phone'];
+                    $date_added=$row["cost_date"];
+                    $direccion_cliente=$row["cost_address"];
 				
 					?>
 					<tr>

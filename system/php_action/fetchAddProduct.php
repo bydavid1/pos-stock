@@ -1,11 +1,9 @@
 <?php
+require_once '../includes/load.php';
 
-require_once 'core.php';
-
-	
 	$action = (isset($_REQUEST['action'])&& $_REQUEST['action'] !=NULL)?$_REQUEST['action']:'';
 	if($action == 'ajax'){
-         $q = mysqli_real_escape_string($connect,(strip_tags($_REQUEST['q'], ENT_QUOTES)));
+		 $q = remove_junk($_REQUEST['q']);
 		 $aColumns = array('cod_product', 'product_name');
 		 $sTable = "product";
 		 $sWhere = "";
@@ -26,13 +24,14 @@ require_once 'core.php';
 		$per_page = 5; 
 		$adjacents  = 4; 
 		$offset = ($page - 1) * $per_page;
-		$count_query   = mysqli_query($connect, "SELECT count(*) AS numrows FROM $sTable  $sWhere");
-		$row= mysqli_fetch_array($count_query);
+		$count_query = "SELECT count(*) AS numrows FROM $sTable  $sWhere";
+		$count_result = $db->query($count_query);
+		$row = $count_result->fetch_array();
 		$numrows = $row['numrows'];
 		$total_pages = ceil($numrows/$per_page);
 		$reload = './index.php';
 		$sql="SELECT * FROM  $sTable $sWhere LIMIT $offset,$per_page";
-		$query = mysqli_query($connect, $sql);
+		$query = $db->query($sql);
 		if ($numrows>0){
 			echo $sql;
 			?>
@@ -46,11 +45,11 @@ require_once 'core.php';
 					<th class='text-center' style="width: 36px;">Agregar</th>
 				</tr>
 				<?php
-				while ($row=mysqli_fetch_array($query)){
+				while ($row = $query->fetch_array()){
 					$id_producto=$row['product_id'];
-					$codigo_producto=$row['cod_product'];
+					$codigo_producto=$row['product_cod'];
 					$nombre_producto=$row['product_name'];
-					$precio_venta=$row["rate"];
+					$precio_venta=$row["price1"];
 					$precio_venta=number_format($precio_venta,2,'.','');
 					?>
 					<tr>

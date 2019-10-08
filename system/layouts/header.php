@@ -11,6 +11,9 @@ if (!$session->isUserLoggedIn(true)) { redirect('index.php', false);}?>
   <link rel="icon" href="images/favicon.ico" type="image/ico" />
 
 	<title>Sistema de Gestión de Inventario</title>
+	<!-- jQuery -->
+	<script src="../vendors/jquery/jquery.min.js"></script>
+    <script src="../vendors/jquery-ui/jquery-ui.min.js"></script>
 	<!-- Bootstrap -->
 	<link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 	<!-- Font Awesome -->
@@ -27,9 +30,6 @@ if (!$session->isUserLoggedIn(true)) { redirect('index.php', false);}?>
 	<link href="../vendors/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
     <!-- jQuery custom content scroller -->
     <link href="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
-    <!-- jQuery -->
-    <script src="../vendors/jquery/jquery.min.js"></script>
-    <script src="../vendors/jquery-ui/jquery-ui.min.js"></script>
 	<!-- Custom Theme Style -->
 	<link href="../build/css/custom.min.css" rel="stylesheet">
 </head>
@@ -39,7 +39,7 @@ if (!$session->isUserLoggedIn(true)) { redirect('index.php', false);}?>
         <div class="col-md-3 left_col menu_fixed">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="dashboard.php" class="site_title"><i class="fa fa-paw"></i> <span>Administrador</span></a>
+              <a href="dashboard.php" class="site_title"><i class="fa fa-cube"></i> <span>Administrador</span></a>
             </div>
 
 					 <div class="clearfix"></div>
@@ -134,7 +134,7 @@ if (!$session->isUserLoggedIn(true)) { redirect('index.php', false);}?>
 						 <ul class="nav navbar-nav navbar-right">
 							 <li class="">
 								 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-									 <img src="../system/assests/images/user.png" alt="">Automotriz
+									 <img src="../system/assests/images/user.png" alt="">Byron
 									 <span class=" fa fa-angle-down"></span>
 								 </a>
 								 <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -146,71 +146,6 @@ if (!$session->isUserLoggedIn(true)) { redirect('index.php', false);}?>
 									 </li>
 									 <li><a href="javascript:;">Ayuda</a></li>
 									 <li><a href="logout.php"><i class="fa fa-sign-out pull-right"></i> Cerrar sesion</a></li>
-								 </ul>
-							 </li>
-
-							 <li role="presentation" class="dropdown">
-								 <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-									 <i class="fa fa-envelope-o"></i>
-									 <span class="badge bg-green">6</span>
-								 </a>
-								 <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-									 <li>
-										 <a>
-											 <span class="image"><img src="../system/assests/images/user.png" alt="Profile Image" /></span>
-											 <span>
-												 <span>Cliente</span>
-												 <span class="time">Ahora</span>
-											 </span>
-											 <span class="message">
-												 Cuenta por cobrar expirada...
-											 </span>
-										 </a>
-									 </li>
-									 <li>
-										 <a>
-											 <span class="image"><img src="../system/assests/images/user.png" alt="Profile Image" /></span>
-											 <span>
-												 <span>Cliente</span>
-												 <span class="time">Ahora</span>
-											 </span>
-											 <span class="message">
-												 Cuenta por cobrar expirada...
-											 </span>
-										 </a>
-									 </li>
-									 <li>
-										 <a>
-											 <span class="image"><img src="../system/assests/images/user.png" alt="Profile Image" /></span>
-											 <span>
-												 <span>Cliente</span>
-												 <span class="time">Ahora</span>
-											 </span>
-											 <span class="message">
-												 Cuenta por cobrar expirada...
-											 </span>
-										 </a>
-									 </li>
-									 <li>
-										 <a>
-											 <span class="image"><img src="../system/assests/images/user.png" alt="Profile Image" /></span>
-											 <span>
-												 <span>Cliente</span>
-												 <span class="time">Ayer</span>
-											 </span>
-											 <span class="message">
-												 Cuenta por cobrar expirada...
-											 </span>
-										 </a>
-									 </li>
-									 <li>
-										 <div class="text-center">
-											 <a>
-												 <strong>Ver todo</strong>
-												 <i class="fa fa-angle-right"></i>
-											 </a>
-										 </div>
-									 </li>
 								 </ul>
 							 </li>
 						 </ul>

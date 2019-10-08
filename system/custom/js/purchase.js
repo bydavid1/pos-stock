@@ -1,6 +1,7 @@
 var manageOutlayTable;
 $(document).ready(function() {
 
+	load(1);
 	var divRequest = $(".div-request").text();
 
 		// top nav bar
@@ -9,17 +10,23 @@ $(document).ready(function() {
 		// top nav child bar
         $('#managerOutlay').addClass('active');
 
-manageOutlayTable = $('#manageOutlayTable').DataTable({
-	'ajax' : 'php_action/fetchOutlay.php',
-	 dom: 'Bfrtip',
-	 responsive: true,
-	  fixedColumns: true,
-	buttons: [
-			'print', 'excel', 'pdf'
-	]
-}); // manage outlay Data Table
-
 });
+
+function load(page){
+    var q= $("#q").val();
+    $("#loader").fadeIn('slow');
+    $.ajax({
+        url:'./php_action/managePurchases.php?action=ajax&page='+page+'&q='+q,
+         beforeSend: function(objeto){
+         $('#loader').html('<img src="./assests/images/ajax-loader.gif"> Cargando...');
+      },
+        success:function(data){
+            $(".outer_div").html(data).fadeIn('slow');
+            $('#loader').html('');
+
+        }
+    })
+}
 
 function removeOutlay(outlayId) {
 	if(outlayId) {

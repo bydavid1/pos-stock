@@ -1,7 +1,11 @@
 <?php 
-require_once 'php_action/db_connect.php'; 
-require_once 'includes/header.php';    
+require_once 'includes/load.php';
+require_once 'layouts/header.php';    
 ?>
+<ol class="breadcrumb">
+	<li><a href="dashboard.php">Inicio</a></li>
+	<li class="active">Cotizaciones</li>
+</ol>
 	<div class="panel panel-primary">
 			<div class="panel-heading">
 				<div class="page-heading"> <i class="glyphicon glyphicon-edit"></i> Listado de cotizaciones</div>
@@ -19,18 +23,14 @@ require_once 'includes/header.php';
 									<span class="glyphicon glyphicon-search" ></span> Buscar</button>
 								<span id="loader"></span>
 							</div>
-							
-						</div>
-				
-				
-				
+						</div>		
 			</form>
 				<div id="resultados"></div><!-- Carga los datos ajax -->
 				<div class='outer_div'></div><!-- Carga los datos ajax -->
 			
   </div>
 </div>
-	<?php
-	include("includes/footer.php");
-	?>
-	<script type="text/javascript" src="custom/js/quotations.js"></script>
+
+<script type="text/javascript" src="custom/js/quotations.js"></script>
+
+<?php include("layouts/footer.php");?>

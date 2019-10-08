@@ -1,38 +1,38 @@
 <?php 
-require_once 'php_action/db_connect.php'; 
-require_once 'includes/header.php'; 
-
-	echo "<div class='div-request div-hide'>manord</div>";
+require_once 'includes/load.php';
+require_once 'layouts/header.php'; 
+	echo "<div class='div-request div-hide'></div>";
 ?>
 
+<ol class="breadcrumb">
+	<li><a href="dashboard.php">Inicio</a></li>
+	<li class="active">Ventas</li>
+</ol>
 
 <div class="panel panel-primary">
 	<div class="panel-heading">
+			<div class="page-heading"> <i class="glyphicon glyphicon-edit"></i> Ventas</div>
+	</div> <!-- /panel-heading -->
+		<div class="panel-body">
+		<form class="form-horizontal" role="form" id="orders">
 
-		<?php 
-		echo	'<i class="glyphicon glyphicon-edit"></i> Gestionar ventas';
-		 ?>
+			<div class="form-group row">
+				<label for="q" class="col-md-2 control-label">Ventas</label>
+				<div class="col-md-5">
+					<input type="text" class="form-control" id="q" placeholder="Ingrese el nombre del cliente" onkeyup='load(1);'>
+				</div>
+				<div class="col-md-2">
+					<button type="button" class="btn btn-default" onclick='load(1);'>
+						<span class="glyphicon glyphicon-search" ></span> Buscar</button>
+					<span id="loader"></span>
+				</div>
+			</div>
+		</form>
+			<div id="resultados"></div><!-- Carga los datos ajax -->
+			<div class='outer_div'></div><!-- Carga los datos ajax -->
 
-	</div> <!--/panel-->	
-	<div class="panel-body">
-
-			<div id="success-messages"></div>
-			
-			<table class="table" id="manageOrderTable">
-				<thead>
-					<tr>
-						<th>#</th>
-						<th>Fecha</th>
-						<th>Cliente</th>
-						<th>Productos</th>
-						<th>Sub Total</th>
-						<th>Total</th>
-						<th>Pago</th>
-						<th>Opciones</th>
-					</tr>
-				</thead>
-			</table>
-
+        </div>
+</div>
 	 
 	 <!-- remove order -->
 <div class="modal fade" tabindex="-1" role="dialog" id="removeOrderModal">
@@ -57,10 +57,11 @@ require_once 'includes/header.php';
 </div><!-- /.modal -->
 <!-- /remove order-->
 
+<?php require_once 'layouts/footer.php'; ?>
 
 <script src="custom/js/order.js"></script>
 
-<?php require_once 'includes/footer.php'; ?>
+
 
 
 	

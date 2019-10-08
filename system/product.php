@@ -8,9 +8,9 @@
 </ol>
 
 <div class="panel panel-primary">
-		<div class="panel-heading">
+	<div class="panel-heading">
 			<div class="page-heading"> <i class="glyphicon glyphicon-edit"></i> Inventario</div>
-		</div> <!-- /panel-heading -->
+	</div> <!-- /panel-heading -->
 		<div class="panel-body">
 		<form class="form-horizontal" role="form" id="products">
 
@@ -29,14 +29,11 @@
 				</div>
 
 			</div>
-
-
-
 		</form>
 			<div id="resultados"></div><!-- Carga los datos ajax -->
 			<div class='outer_div'></div><!-- Carga los datos ajax -->
 
-</div>
+        </div>
 </div>
 
 

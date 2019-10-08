@@ -2,24 +2,21 @@ var manageOrderTable;
 
 $(document).ready(function() {
 
+	load(1);
+	
 	var divRequest = $(".div-request").text();
 
 	// top nav bar 
 	$("#navOrder").addClass('active');
 
 		// top nav child bar 
-		$('#topNavManageOrder').addClass('active');
-
-		manageOrderTable = $("#manageOrderTable").DataTable({
-			'ajax': 'php_action/fetchOrder.php',
-			'order': []
-		});		
+		$('#topNavManageOrder').addClass('active');	
 
 		$("#orderDate").datepicker();
 
 		// edit order form function
 		$("#editOrderForm").unbind('submit').bind('submit', function() {
-			// alert('ok');
+
 			var form = $(this);
 
 			$('.form-group').removeClass('has-error').removeClass('has-success');
@@ -159,6 +156,22 @@ $(document).ready(function() {
 		}); // /edit order form function	 	
 					
 });
+
+function load(page){
+    var q= $("#q").val();
+    $("#loader").fadeIn('slow');
+    $.ajax({
+        url:'./php_action/manageSales.php?action=ajax&page='+page+'&q='+q,
+         beforeSend: function(objeto){
+         $('#loader').html('<img src="./assests/images/ajax-loader.gif"> Cargando...');
+      },
+        success:function(data){
+            $(".outer_div").html(data).fadeIn('slow');
+            $('#loader').html('');
+
+        }
+    })
+}
 
 // print order function
 function printOrder(orderId = null) {

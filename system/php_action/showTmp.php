@@ -10,12 +10,13 @@
 </tr>   
 
 <?php
-require_once 'core.php'; //Conexion y verificacion de sesion
+require_once '../includes/load.php';
 
 $session_id= session_id();
 $sumador_total=0;
-	$sql=mysqli_query($connect, "select * from product, tmp where product.product_id=tmp.product_id and tmp.session_id='".$session_id."'");
-	while ($row=mysqli_fetch_array($sql))
+	$sql = "select * from product, tmp where product.product_id=tmp.product_id and tmp.session_id='".$session_id."'";
+	$result = $db->query($sql);
+	while ($row=$result->fetch_array())
 	{
 	$id_tmp=$row["id_tmp"];
 	$codigo_producto=$row['product_id'];

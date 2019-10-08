@@ -1,5 +1,5 @@
 <?php
-	require_once 'core.php';
+require_once '../includes/load.php';
 	
 	$action = (isset($_REQUEST['action'])&& $_REQUEST['action'] !=NULL)?$_REQUEST['action']:'';
 	if (isset($_GET['id'])){
@@ -26,10 +26,9 @@
 		
 	}
 	if($action == 'ajax'){
-		// escaping, additionally removing everything that could be (html/javascript-) code
-         $q = mysqli_real_escape_string($connect,(strip_tags($_REQUEST['q'], ENT_QUOTES)));
-		 $aColumns = array('nombre_cliente');//Columnas de busqueda
-		 $sTable = "clientes";
+		$q = remove_junk($_REQUEST['q']);
+		 $aColumns = array('cost_name');//Columnas de busqueda
+		 $sTable = "costumers";
 		 $sWhere = "";
 		if ( $_GET['q'] != "" )
 		{
@@ -41,23 +40,20 @@
 			$sWhere = substr_replace( $sWhere, "", -3 );
 			$sWhere .= ')';
 		}
-		$sWhere.=" order by nombre_cliente";
-		include 'pagination.php'; //include pagination file
-		//pagination variables
+		$sWhere.=" order by cost_name";
+		include 'pagination.php'; 
 		$page = (isset($_REQUEST['page']) && !empty($_REQUEST['page']))?$_REQUEST['page']:1;
-		$per_page = 10; //how much records you want to show
-		$adjacents  = 4; //gap between pages after number of adjacents
+		$per_page = 10; 
+		$adjacents  = 4; 
 		$offset = ($page - 1) * $per_page;
-		//Count the total number of row in your table*/
-		$count_query   = mysqli_query($connect, "SELECT count(*) AS numrows FROM $sTable  $sWhere");
-		$row= mysqli_fetch_array($count_query);
+		$count_query = "SELECT count(*) AS numrows FROM costumers $sWhere";
+		$count_result = $db->query($count_query);
+		$row = $count_result->fetch_array();
 		$numrows = $row['numrows'];
 		$total_pages = ceil($numrows/$per_page);
-		$reload = './clientes.php';
-		//main query to fetch the data
+		$reload = './costumers.php';
 		$sql="SELECT * FROM  $sTable $sWhere LIMIT $offset,$per_page";
-		$query = mysqli_query($connect, $sql);
-		//loop through fetched data
+		$query = $db->query($sql);
 		if ($numrows>0){
 			
 			?>
@@ -75,13 +71,13 @@
 				</tr>
 				<?php
 				while ($row=mysqli_fetch_array($query)){
-						$id_cliente=$row['id_cliente'];
-						$codigo=$row['code'];
-						$nombre_cliente=$row['nombre_cliente'];
-						$telefono_cliente=$row['telefono_cliente'];
-						$email_cliente=$row['email_cliente'];
-						$direccion_cliente=$row['direccion_cliente'];
-						$date_added= date('d/m/Y', strtotime($row['date_added']));
+						$id_cliente=$row['cost_id'];
+						$codigo=$row['cost_code'];
+						$nombre_cliente=$row['cost_name'];
+						$telefono_cliente=$row['cost_phone'];
+						$email_cliente=$row['cost_email'];
+						$direccion_cliente=$row['cost_address'];
+						$date_added= date('d/m/Y', strtotime($row['cost_date']));
 						
 					?>
 					<input type="hidden" value="<?php echo $codigo;?>" id="nombre_cliente<?php echo $id_cliente;?>">

@@ -2,22 +2,8 @@ var manageBrandTable;
 
 $(document).ready(function() {
 	// top bar active
-	$('#navBrand').addClass('active');
-
-	// manage brand table
-	manageBrandTable = $("#manageBrandTable").DataTable({
-		'ajax': 'php_action/fetchBrand.php',
-		dom: 'Bfrtip',
-		responsive: true,
-		"language": {
-		 "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
-    },
-	 buttons: [
-			 'print', 'excel', 'pdf'
-	 ]
-
-	});
-
+	//$('#navBrand').addClass('active');
+    load(1);
 	// submit brand form function
 	$("#submitBrandForm").unbind('submit').bind('submit', function() {
 		// remove the error text
@@ -136,6 +122,22 @@ $(document).ready(function() {
 
 });
 
+function load(page){
+    var q= $("#q").val();
+    $("#loader").fadeIn('slow');
+    $.ajax({
+        url:'./php_action/manageProviders.php?action=ajax&page='+page+'&q='+q,
+         beforeSend: function(objeto){
+         $('#loader').html('<img src="./assests/images/ajax-loader.gif"> Cargando...');
+      },
+        success:function(data){
+            $(".outer_div").html(data).fadeIn('slow');
+            $('#loader').html('');
+
+        }
+    })
+}
+
 function editBrands(brandId = null) {
 	if(brandId) {
 		// remove hidden brand id text
@@ -165,7 +167,6 @@ function editBrands(brandId = null) {
 				$('.edit-brand-result').removeClass('div-hide');
 				// modal footer
 				$('.editBrandFooter').removeClass('div-hide');
-
 				// setting the brand name value
 				$('#editBrandName').val(response.brand_name);
 				// setting the brand status value
@@ -175,7 +176,6 @@ function editBrands(brandId = null) {
 
 				// update brand form
 				$('#editBrandForm').unbind('submit').bind('submit', function() {
-
 					// remove the error text
 					$(".text-danger").remove();
 					// remove the form error

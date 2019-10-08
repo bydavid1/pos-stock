@@ -1,9 +1,9 @@
-<?php require_once 'includes/header.php'; 
- require_once 'php_action/db_connect.php'; 
+<?php require_once 'layouts/header.php'; 
+require_once 'includes/load.php';
 include 'modal/productsOrder.php';  
 include 'modal/costumerModal.php'; ?> 
 
-<div class='div-request div-hide'>add</div>
+<div class='div-request div-hide'></div>
 
 <ol class="breadcrumb">
   <li><a href="dashboard.php">Inicio</a></li>
@@ -162,6 +162,6 @@ include 'modal/costumerModal.php'; ?>
 	       
      	</form> <!-- /.form -->	     
 
-			 <script src="custom/js/addReturn.js"></script>
+       <?php require_once 'layouts/footer.php'; ?>
 
-       <?php require_once 'includes/footer.php'; ?>
+       <script src="custom/js/addReturn.js"></script>

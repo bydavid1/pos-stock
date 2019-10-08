@@ -1,5 +1,5 @@
-<?php require_once 'includes/header.php';
- require_once 'php_action/db_connect.php';
+<?php require_once 'layouts/header.php';
+require_once 'includes/load.php';
 include 'modal/productsOrder.php';
 include 'modal/providerModal.php'; ?>
 
@@ -183,6 +183,6 @@ include 'modal/providerModal.php'; ?>
 
      	</form> <!-- /.form -->
 
+       <?php require_once 'layouts/footer.php'; ?>
+       
 			 <script src="custom/js/addOutlay.js"></script>
-
-       <?php require_once 'includes/footer.php'; ?>

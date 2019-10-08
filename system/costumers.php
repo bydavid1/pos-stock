@@ -1,7 +1,11 @@
-<?php
-require_once 'php_action/db_connect.php';
-require_once 'includes/header.php';
-?>
+<?php require_once 'layouts/header.php'; ?>
+<?php require_once 'includes/load.php'; ?> 
+
+<ol class="breadcrumb">
+	<li><a href="dashboard.php">Inicio</a></li>
+	<li class="active">Clientes</li>
+</ol>
+
 	<div class="panel panel-primary">
 			<div class="panel-heading">
 				<div class="page-heading"> <i class="glyphicon glyphicon-edit"></i> Listado de clientes</div>
@@ -24,18 +28,18 @@ require_once 'includes/header.php';
 			         </div>
 
 						</div>
-
-
-
 			</form>
 				<div id="resultados"></div><!-- Carga los datos ajax -->
 				<div class='outer_div'></div><!-- Carga los datos ajax -->
 
   </div>
 </div>
+
+<script type="text/javascript" src="custom/js/costumers.js"></script>
+
 	<?php
     include("modal/registerCostumer.php");
     include("modal/editCostumer.php");
-	include("includes/footer.php");
+	include("layouts/footer.php");
 	?>
-	<script type="text/javascript" src="custom/js/costumers.js"></script>
+
