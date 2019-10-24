@@ -1,61 +1,64 @@
 <?php
+ try {
+     
+ require_once '../includes/load.php';
 
-require_once 'core.php';
-
-$valid['success'] = array('success' => false, 'message1' => array(), 'message2' => array(), 'message3' => array());
 $type = $_POST['type'];
 
-if ($type == "get"){
+if ($type == "get") {
 
    $productCode = $_POST['code'];
-   $sql = "SELECT product_name, rate1 FROM product WHERE cod_product = '$productCode'";
-   $result = $connect->query($sql);
+   $sql = "SELECT product_name, price1 FROM product WHERE product_cod = '$productCode'";
+   $stmt = $db->query($sql);
 
-   if($result->num_rows > 0) {
-    while ($row = $result->fetch_array()){
-       $res = $row['product_name'];
-       $rate = $row['rate1'];
-    }
-      $valid['success'] = true;
-      $valid['message1'] = $res;
-      $valid['message2'] = $rate;
-      $valid['message3'] = null;
-   }else{
-      $valid['success'] = false;
-      $valid['message1'] = null;
-      $valid['message2'] = null;
-      $valid['message3'] = null;
-   }
-
-   echo json_encode($valid);
-
-}else if($type == "add"){
+}elseif($type == "add"){
 
    $id = $_POST['id'];
+   $sql = "SELECT product_name, product_cod, price1 FROM product WHERE product_id = $id";
+   $stmt = $db->prepare($sql);
+   $stmt->execute();
 
-
-   $sql = "SELECT product_name, cod_product, rate1 FROM product WHERE product_id = $id";
-   $result = $connect->query($sql);
-
-   if($result->num_rows > 0) {
-      while ($row = $result->fetch_array()){
-         $name = $row['product_name'];
-         $code = $row['cod_product'];
-         $rate = $row['rate1'];
-      }
-      $valid['success'] = true;
-      $valid['messages1'] = $name;
-      $valid['messages2'] = $code;
-      $valid['messages3'] = $rate;
-   }else{
-      $valid['success'] = false;
-      $valid['message1'] = null;
-      $valid['message2'] = null;
-      $valid['message3'] = null;
-   }
-
-     echo json_encode($valid);
 }
 
+$num = $db->num_rows($stmt);
 
-$connect->close();
+if($num>0){
+ 
+   $response = array();
+
+    while ($row = $stmt->fetch_array()){
+
+        extract($row);
+
+        $response_item=array(
+            "product_name" => $row['product_name'],
+            "price1" => $row['price1']
+        );
+
+        array_push($response, $response_item);
+    }
+    http_response_code(200);
+
+    echo json_encode($response);
+}
+else{
+
+    http_response_code(204);
+
+    echo json_encode(
+        array("message" => "No products found.")
+    );
+}
+     
+   $db = null;
+ } catch (Exception $th) {
+    
+   http_response_code(500);
+
+   echo json_encode(
+       array("message" => "". $th->getMessage())
+   );
+
+ }
+
+

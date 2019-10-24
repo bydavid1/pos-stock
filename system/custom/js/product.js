@@ -1,13 +1,13 @@
 var manageProductTable;
 
-$(document).ready(function() {
+$(document).ready(function () {
     //Data
     load(1);
     // top nav bar
     $('#navProduct').addClass('active');
 
     // add product modal btn clicked
-    $("#addProductModalBtn").unbind('click').bind('click', function() {
+    $("#addProductModalBtn").unbind('click').bind('click', function () {
         // // product form reset
         $("#submitProductForm")[0].reset();
 
@@ -36,7 +36,7 @@ $(document).ready(function() {
         });
 
         // submit product form
-        $("#submitProductForm").unbind('submit').bind('submit', function() {
+        $("#submitProductForm").unbind('submit').bind('submit', function () {
 
             $('.form-group').removeClass('has-error').removeClass('has-success');
             $('.text-danger').remove();
@@ -167,7 +167,7 @@ $(document).ready(function() {
                     cache: false,
                     contentType: false,
                     processData: false,
-                    success: function(response) {
+                    success: function (response) {
                         console.log(response);
                         if (response.success == true) {
                             // submit loading button
@@ -190,8 +190,8 @@ $(document).ready(function() {
                             $("#createProductBtn").button('reset');
 
                             $("#message").hide();
-                            $(".alert-success").delay(500).show(10, function() {
-                                $(this).delay(3000).hide(10, function() {
+                            $(".alert-success").delay(500).show(10, function () {
+                                $(this).delay(3000).hide(10, function () {
                                     $(this).remove();
                                 });
                             }); // /.alert
@@ -220,8 +220,8 @@ $(document).ready(function() {
                     '</div>');
 
                 // remove the mesages
-                $(".alert-warning").delay(500).show(10, function() {
-                    $(this).delay(3000).hide(10, function() {
+                $(".alert-warning").delay(500).show(10, function () {
+                    $(this).delay(3000).hide(10, function () {
                         $(this).remove();
                     });
                 }); // /.alert
@@ -243,10 +243,10 @@ function load(page) {
     $("#loader").fadeIn('slow');
     $.ajax({
         url: './php_action/manageProduct.php?action=ajax&page=' + page + '&q=' + q,
-        beforeSend: function(objeto) {
+        beforeSend: function (objeto) {
             $('#loader').html('<img src="./assests/images/ajax-loader.gif"> Cargando...');
         },
-        success: function(data) {
+        success: function (data) {
             $(".outer_div").html(data).fadeIn('slow');
             $('#loader').html('');
 
@@ -273,12 +273,12 @@ function editProduct(productId = null) {
                 productId: productId
             },
             dataType: 'json',
-            success: function(response) {
+            success: function (response) {
                 // modal div
                 $('.div-loading').show();
                 $('.div-result').show();
 
-                $("#getProductImage").attr('src', 'system/' +  response.product_image);
+                $("#getProductImage").attr('src', 'system/' + response.product_image);
 
                 $("#editProductImage").fileinput({});
                 $(".editProductPhotoFooter").append('<input type="hidden" name="productId" id="productId" value="' + response.product_id + '" />');
@@ -336,7 +336,7 @@ function editProduct(productId = null) {
                 $("#editUtility4").val(utility4);
 
                 // update the product data function
-                $("#editProductForm").unbind('submit').bind('submit', function() {
+                $("#editProductForm").unbind('submit').bind('submit', function () {
 
                     // remove text-error
                     $(".text-danger").remove();
@@ -474,7 +474,7 @@ function editProduct(productId = null) {
                             cache: false,
                             contentType: false,
                             processData: false,
-                            success: function(response) {
+                            success: function (response) {
                                 if (response.success == true) {
                                     // submit loading button
                                     $("#editProductBtn").button('reset');
@@ -492,8 +492,8 @@ function editProduct(productId = null) {
                                     load(1);
 
                                     // remove the mesages
-                                    $(".alert-success").delay(500).show(10, function() {
-                                        $(this).delay(3000).hide(10, function() {
+                                    $(".alert-success").delay(500).show(10, function () {
+                                        $(this).delay(3000).hide(10, function () {
                                             $(this).remove();
                                         });
                                     }); // /.alert
@@ -519,8 +519,8 @@ function editProduct(productId = null) {
                                         '</div>');
 
                                     // remove the mesages
-                                    $(".alert-success").delay(500).show(10, function() {
-                                        $(this).delay(3000).hide(10, function() {
+                                    $(".alert-success").delay(500).show(10, function () {
+                                        $(this).delay(3000).hide(10, function () {
                                             $(this).remove();
                                         });
                                     }); // /.alert
@@ -538,7 +538,7 @@ function editProduct(productId = null) {
                 }); // update the product data function
 
                 // update the product image
-                $("#updateProductImageForm").unbind('submit').bind('submit', function() {
+                $("#updateProductImageForm").unbind('submit').bind('submit', function () {
                     // form validation
                     var productImage = $("#editProductImage").val();
 
@@ -567,7 +567,7 @@ function editProduct(productId = null) {
                             cache: false,
                             contentType: false,
                             processData: false,
-                            success: function(response) {
+                            success: function (response) {
 
                                 if (response.success == true) {
                                     // submit loading button
@@ -586,8 +586,8 @@ function editProduct(productId = null) {
                                     load(1);
 
                                     // remove the mesages
-                                    $(".alert-success").delay(500).show(10, function() {
-                                        $(this).delay(3000).hide(10, function() {
+                                    $(".alert-success").delay(500).show(10, function () {
+                                        $(this).delay(3000).hide(10, function () {
                                             $(this).remove();
                                         });
                                     }); // /.alert
@@ -598,7 +598,7 @@ function editProduct(productId = null) {
                                     $.ajax({
                                         url: 'php_action/fetchProductImageUrl.php?i=' + productId,
                                         type: 'post',
-                                        success: function(response) {
+                                        success: function (response) {
                                             $("#getProductImage").attr('src', response);
                                         }
                                     });
@@ -632,7 +632,7 @@ function removeProduct(productId = null) {
 
         console.log(productId);
         // remove product button clicked
-        $("#removeProductBtn").unbind('click').bind('click', function() {
+        $("#removeProductBtn").unbind('click').bind('click', function () {
             // loading remove button
             $("#removeProductBtn").button('loading');
             $.ajax({
@@ -642,7 +642,7 @@ function removeProduct(productId = null) {
                     productId: productId
                 },
                 dataType: 'json',
-                success: function(response) {
+                success: function (response) {
                     // loading remove button
                     $("#removeProductBtn").button('reset');
                     if (response.success == true) {
@@ -656,8 +656,8 @@ function removeProduct(productId = null) {
                         load(1);
 
                         // remove the mesages
-                        $(".alert-success").delay(500).show(10, function() {
-                            $(this).delay(3000).hide(10, function() {
+                        $(".alert-success").delay(500).show(10, function () {
+                            $(this).delay(3000).hide(10, function () {
                                 $(this).remove();
                             });
                         }); // /.alert
@@ -670,8 +670,8 @@ function removeProduct(productId = null) {
                             '</div>');
 
                         // remove the mesages
-                        $(".alert-success").delay(500).show(10, function() {
-                            $(this).delay(3000).hide(10, function() {
+                        $(".alert-success").delay(500).show(10, function () {
+                            $(this).delay(3000).hide(10, function () {
                                 $(this).remove();
                             });
                         }); // /.alert
@@ -799,7 +799,7 @@ function viewProduct(id) {
             productId: id
         },
         dataType: 'json',
-        success: function(response) {
+        success: function (response) {
 
             $("#imageProduct").attr('src', 'system/' + response.product_image);
 

@@ -43,8 +43,8 @@ require_once '../includes/load.php';
                  <th>Telefono</th>
                  <th>NIT</th>
                  <th>Direccion</th>
-				 <th>Disponible</th>
-                 <th class='text-right'>Acciones</th>
+				         <th>Disponible</th>
+                 <th class="text-right">Acciones</th>
 
              </tr>
              <?php
@@ -62,17 +62,17 @@ require_once '../includes/load.php';
 						$activeBrands = "<label class='label label-danger'>No disponible</label>";
 					}
 
-                     $button = '<a type="button" class="btn btn-warning" data-toggle="modal" data-target="#editBrandModel" onclick="editBrands('.$Id.')"> <i class="glyphicon glyphicon-edit"></i> Editar</a>
-					 <a type="button" class="btn btn-danger" data-toggle="modal" data-target="#removeMemberModal" onclick="removeBrands('.$Id.')"> <i class="glyphicon glyphicon-trash"></i> Eliminar</a>';
+                     $button = '<a type="button" class="btn btn-warning" data-toggle="modal" data-target="#editBrandModel" onclick="editBrands('.$Id.')"> <i class="glyphicon glyphicon-edit"></i></a>
+					 <a type="button" class="btn btn-danger" data-toggle="modal" data-target="#removeMemberModal" onclick="removeBrands('.$Id.')"> <i class="glyphicon glyphicon-trash"></i></a>';
 
                  ?>
-                     <td  id="viewProduct"><?php echo $prov_cod; ?></td>
-                     <td  id="viewProduct"><?php echo $prov_name; ?></td>
-                     <td  id="viewProduct"><?php echo $prov_phone;?></td>
-                     <td  id="viewProduct"><?php echo $prov_nit;?></td>
-                     <td  id="viewProduct"><?php echo $prov_address;?></td>
-					 <td  id="viewProduct"><?php echo $activeBrands;?></td>
-                     <td class='text-right'><?php echo $button;?></td>
+                     <td><?php echo $prov_cod; ?></td>
+                     <td><?php echo $prov_name; ?></td>
+                     <td><?php echo $prov_phone;?></td>
+                     <td><?php echo $prov_nit;?></td>
+                     <td><?php echo $prov_address;?></td>
+					           <td><?php echo $activeBrands;?></td>
+                     <td class="text-right"><?php echo $button;?></td>
 
                   </tr>
                   <?php

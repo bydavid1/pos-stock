@@ -23,10 +23,10 @@
     <!-- bootstrap-daterangepicker -->
     <script src="../vendors/moment/min/moment.min.js"></script>
     <script src="../vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
-	<!-- file input -->
-	<script src="../vendors/fileinput/js/plugins/sortable.min.js" type="text/javascript"></script>
-	<script src="../vendors/fileinput/js/plugins/purify.min.js" type="text/javascript"></script>
-	<script src="../vendors/fileinput/js/fileinput.min.js"></script>
+    <!-- file input -->
+    <script src="../vendors/fileinput/js/plugins/sortable.min.js" type="text/javascript"></script>
+    <script src="../vendors/fileinput/js/plugins/purify.min.js" type="text/javascript"></script>
+    <script src="../vendors/fileinput/js/fileinput.min.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="../build/js/custom.min.js"></script>
     <!-- jQuery custom content scroller -->
