@@ -4189,7 +4189,16 @@ html , body{
       .dataTables_length { float:none; }
    }
    
-   
+   #loader {
+    background: url('../../system/assests/images/ajax-loader.gif') no-repeat center center;
+    position: absolute;
+    background-size: 60%;
+    height: 50%;
+    width: 50%;
+    top: 25%;
+    right: 25%;
+    z-index: 9999999;
+}
    
    
    /* CSS3 Checkbox */

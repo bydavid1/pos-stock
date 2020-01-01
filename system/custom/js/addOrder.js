@@ -110,60 +110,6 @@ $(document).ready(function () {
 
 });
 
-//Modal
-function load(page) {
-	var q = $("#q").val();
-	$("#loader").fadeIn('slow');
-	$.ajax({
-		url: './php_action/fetchAddProduct.php?action=ajax&page=' + page + '&q=' + q,
-		beforeSend: function (objeto) {
-			$('#loader').html('<img src="./img/ajax-loader.gif"> Cargando...');
-		},
-		success: function (data) {
-			$(".outer_div").html(data).fadeIn('slow');
-			$('#loader').html('');
-
-		}
-	})
-}
-
-function agregar(id) {
-	var cantidad = document.getElementById('cantidad_' + id).value;
-	//Inicia validacion
-	if (isNaN(cantidad)) {
-		alert('Esto no es un numero');
-		document.getElementById('cantidad_' + id).focus();
-		return false;
-	}
-	//Fin validacion
-	$.ajax({
-		type: "POST",
-		url: "./php_action/addOrder.php",
-		data: "id=" + id + "&&cantidad=" + cantidad,
-		beforeSend: function () {
-			$("#resultados").html("Mensaje: Cargando...");
-		},
-		success: function (data) {
-			$("#resultados").html(data);
-		}
-	});
-}
-
-function eliminar(id) {
-	$.ajax({
-		type: "GET",
-		url: "php_action/addOrder.php",
-		data: "id=" + id,
-		beforeSend: function (objeto) {
-			$("#resultados").html("Mensaje: Cargando...");
-		},
-		success: function (datos) {
-			$("#resultados").html(datos);
-		}
-	});
-
-}
-
 function resetOrderForm() {
 	$.ajax({
 		type: "GET",

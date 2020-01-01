@@ -3,8 +3,6 @@ require_once 'includes/load.php';
 include 'modal/productsOrder.php';
 include 'modal/costumerModal.php'; ?>
 
-<div class='div-request div-hide'></div>
-
 <ol class="breadcrumb">
   <li><a href="dashboard.php">Inicio</a></li>
   <li>Ventas</li>
@@ -26,16 +24,16 @@ include 'modal/costumerModal.php'; ?>
 
     <form class="form-horizontal" method="POST" action="php_action/createCredit.php" id="createCreditForm">
 
-      <div class="col-sm-6">
+      <div class="col-md-6 col-sm-12">
         <div class="form-group">
-          <label for="outlayDate" class="col-sm-3 control-label">Fecha de credito</label>
-          <div class="col-sm-8">
+          <label for="outlayDate" class="col-3 col-sm-3 control-label">Fecha de credito</label>
+          <div class="col-9 col-sm-9">
             <input type="text" class="form-control" id="date" name="date" autocomplete="off"
               value="<?php echo date("m/d/Y");?>" />
           </div>
         </div>
         <!--/form-group-->
-        <div class="form-group col-sm-12">
+        <div class="input-group col-sm-12">
           <label for="clientName" class="col-sm-3 control-label">Vendido a:</label>
           <div class="col-sm-7">
             <input type="text" class="form-control" id="costumer" name="costumer" placeholder="Vendido a"
@@ -58,7 +56,7 @@ include 'modal/costumerModal.php'; ?>
         <!--/form-group-->
       </div>
 
-      <div class="col-sm-6">
+      <div class="col-md-6 col-sm-12">
         <div class="form-group">
           <label class='col-sm-2 control-label'>Pago</label>
           <div class="col-sm-8">
@@ -91,7 +89,7 @@ include 'modal/costumerModal.php'; ?>
         <input type="hidden" class="form-control" id="nit" name="nit" />
       </div>
 
-      <table class="table table-condensed" id="creditTable">
+      <table class="table table-condensed" id="productTable">
         <thead>
           <tr class="info">
             <th style="width:10%;">Codigo</th>
@@ -114,32 +112,25 @@ include 'modal/costumerModal.php'; ?>
               <div class="form-group col-sm-12">
                 <input type="text" name="productCode[]" id="productCode<?php echo $x; ?>" autocomplete="off"
                   class="form-control" onchange='getProductData(<?php echo $x; ?>)' />
-                <input type="hidden" name="productCodeValue[]" id="ProductCodeValue<?php echo $x; ?>" autocomplete="off"
-                  class="form-control" />
               </div>
             </td>
             <td>
               <div class="form-group col-sm-12">
                 <input type="text" name="productName[]" id="productName<?php echo $x; ?>" autocomplete="off"
                   class="form-control" disabled />
-                <input type="hidden" name="productNameValue[]" id="productNameValue<?php echo $x; ?>" autocomplete="off"
-                  class="form-control" />
               </div>
             </td>
             <td>
-              <div class="form-group col-sm-12">
+              <div class="input-group col-sm-12">
+                <span class="input-group-addon">$</span>
                 <input type="number" name="rate[]" id="rate<?php echo $x; ?>" autocomplete="off" class="form-control"
-                  step='0.01' min='0' onkeyup='totalValue(<?php echo $x; ?>)' disabled />
-                <input type="hidden" name="rateValue[]" id="rateValue<?php echo $x; ?>" autocomplete="off"
-                  class="form-control" />
+                  step='0.01' min='0' onchange='totalValue(<?php echo $x; ?>)' disabled />
               </div>
             </td>
             <td>
               <div class="form-group col-sm-12">
                 <input type="number" name="quantity[]" id="quantity<?php echo $x; ?>" autocomplete="off"
-                  class="form-control" min='1' onkeyup='totalValue(<?php echo $x; ?>)' disabled />
-                <input type="hidden" name="quantityValue[]" id="quantityValue<?php echo $x; ?>" autocomplete="off"
-                  class="form-control" />
+                  class="form-control" min='1' onchange='totalValue(<?php echo $x; ?>)' disabled />
               </div>
             </td>
             <td>
@@ -148,15 +139,13 @@ include 'modal/costumerModal.php'; ?>
               </div>
             </td>
             <td>
-              <div class="form-group col-sm-12">
+              <div class="input-group col-sm-12">
+                <span class="input-group-addon">$</span>
                 <input type="text" name="total[]" id="total<?php echo $x; ?>" autocomplete="off" class="form-control"
                   step='0.01' min='0' disabled="true" />
-                <input type="hidden" name="totalValue[]" id="totalValue<?php echo $x; ?>" autocomplete="off"
-                  class="form-control" />
               </div>
             </td>
             <td>
-
               <button class="btn btn-default removeProductRowBtn" type="button" id="removeProductRowBtn"
                 onclick="removeProductRow(<?php echo $x; ?>)"><i class="glyphicon glyphicon-trash"></i></button>
             </td>
@@ -173,17 +162,17 @@ include 'modal/costumerModal.php'; ?>
       <div class="col-md-6">
         <div class="form-group">
           <label for="vat" class="col-sm-3 control-label">Cantidad total</label>
-          <div class="col-sm-5">
+          <div class="col-sm-5 input-group">
+            <span class="input-group-addon">$</span>
             <input type="text" class="form-control" id="grandQuantity" name="grandQuantity" disabled="true" />
-            <input type="hidden" class="form-control" id="grandQuantityValue" name="grandQuantityValue" />
           </div>
         </div>
         <!--/form-group-->
         <div class="form-group">
           <label for="grandTotal" class="col-sm-3 control-label">Total</label>
-          <div class="col-sm-5">
+          <div class="col-sm-5 input-group">
+            <span class="input-group-addon">$</span>
             <input type="text" class="form-control" id="grandTotal" name="grandTotal" disabled="true" />
-            <input type="hidden" class="form-control" id="grandTotalValue" name="grandTotalValue" />
           </div>
         </div>
         <!--/form-group-->
@@ -243,10 +232,10 @@ include 'modal/costumerModal.php'; ?>
         <!-- /modal-dailog -->
       </div>
       <!-- / prices modal -->
-
-
     </form> <!-- /.form -->
 
     <?php require_once 'layouts/footer.php'; ?>
 
     <script src="custom/js/addCredit.js"></script>
+
+    <script src="custom/js/productsTable.js"></script>

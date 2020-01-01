@@ -8,16 +8,14 @@ $type = $_POST['type'];
 if ($type == "get") {
 
    $productCode = $_POST['code'];
-   $sql = "SELECT product_name, price1 FROM product WHERE product_cod = '$productCode'";
+   $sql = "SELECT product_cod, product_name, price1 FROM product WHERE product_cod = '$productCode'";
    $stmt = $db->query($sql);
 
 }elseif($type == "add"){
 
    $id = $_POST['id'];
    $sql = "SELECT product_name, product_cod, price1 FROM product WHERE product_id = $id";
-   $stmt = $db->prepare($sql);
-   $stmt->execute();
-
+   $stmt = $db->query($sql);
 }
 
 $num = $db->num_rows($stmt);
@@ -31,6 +29,7 @@ if($num>0){
         extract($row);
 
         $response_item=array(
+            "product_cod" => $row['product_cod'],
             "product_name" => $row['product_name'],
             "price1" => $row['price1']
         );
