@@ -146,7 +146,6 @@ $(document).ready(function () {
 				}); // /ajax
 			} // if array validate is true
 		} // /if field validate is true
-
 		return false;
 	});
 }); //Document

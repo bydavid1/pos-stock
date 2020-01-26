@@ -1,0 +1,317 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Brot.Models
+{
+    public class codigoModel
+    {
+        public int id_user { get; set; }
+        public string codigo { get; set; }
+    }
+}
+
+
+
+using Brot.Models;
+using Brot.Services;
+using DLL;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Windows.Input;
+using Xamarin.Forms;
+
+namespace Brot.ViewModels
+{
+    public class SignUpVerifyViewModel : BaseViewModel
+    {
+
+        private string _code;
+        private bool _isEnabled;
+        private string _currentCode;
+        private userModel _item;
+        public string Code
+        {
+            get { return _code; }
+            set { SetProperty(ref _code, value); }
+        }
+        public bool IsEnabled
+        {
+            get { return _isEnabled; }
+            set { SetProperty(ref _isEnabled, value); }
+        }
+
+        public SignUpVerifyViewModel(userModel item, string currentCode)
+        {
+            _item = item;
+            _currentCode = currentCode;
+        }
+
+        public ICommand Send
+        {
+            get
+            {
+                return new Xamarin.Forms.Command(SendCode);
+            }
+        }
+
+        private async void SendCode(object obj)
+        {
+            IsRefreshing = true;
+            IsEnabled = false;
+            if (Code == _currentCode)
+            {
+                var resp = await RestClient.Post4Reg<userModel>(constantes.userst, _item);
+                if (!resp.IsSuccess)
+                {
+                    await Application.Current.MainPage.DisplayAlert("No se ha podido registrar el usuario", resp.Message, "Aceptar");
+                    IsRefreshing = false;
+                    return;
+                }
+                await Application.Current.MainPage.DisplayAlert("Exito", "El usuario ha sido registrado", "Aceptar");
+                await Application.Current.MainPage.Navigation.PopAsync();
+                IsRefreshing = false;
+            }
+        }
+    }
+}
+
+--------------------SignUpVerifyViewModel
+
+namespace Brot.ViewModels
+{
+    using Views;
+    using System.Windows.Input;
+    using Xamarin.Forms;
+    using Brot.Models;
+    using Brot.Services;
+    using DLL;
+    using Brot.Patterns;
+    using System;
+
+    public class SignupViewModel : BaseViewModel
+    {
+        #region Atributos
+        private string nombre;
+        private string apellido;
+        private string username;
+        private string email;
+        private string password;
+        private string spassword;
+        #endregion
+        #region Propiedades
+        public string Nombre
+        {
+            get
+            {
+                return nombre;
+            }
+            set
+            {
+                SetProperty(ref nombre, value);
+            }
+        }
+        public string Apellido
+        {
+            get
+            {
+                return apellido;
+            }
+            set
+            {
+                SetProperty(ref apellido, value);
+            }
+        }
+        public string Username
+        {
+            get
+            {
+                return username;
+            }
+            set
+            {
+                SetProperty(ref username, value);
+            }
+        }
+        public string Email
+        {
+            get
+            {
+                return email;
+            }
+            set
+            {
+                SetProperty(ref email, value);
+            }
+        }
+        public string Password
+        {
+            get
+            {
+                return password;
+            }
+            set
+            {
+                SetProperty(ref password, value); Singleton.passw = value;
+            }
+        }
+        public string RepeatedPassword
+        {
+            get
+            {
+                return spassword;
+            }
+            set
+            {
+                SetProperty(ref spassword, value);
+            }
+        }
+
+        private bool _correctPassword;
+        public bool CorrectPassword
+        {
+            get { return _correctPassword; }
+            set { SetProperty(ref _correctPassword, value); }
+        }
+        #endregion
+        #region Comandos
+        public ICommand LoginCommand
+        {
+            get
+            {
+                return new Xamarin.Forms.Command(LoginUser);
+            }
+        }
+
+        public ICommand RegisterCommand
+        {
+            get
+            {
+                return new Xamarin.Forms.Command(Register);
+            }
+        }
+        #endregion
+        #region Metodos
+
+        public void LoginUser()
+        {
+            Application.Current.MainPage.Navigation.PopAsync();
+        }
+
+        public void GoToMainPage()
+        {
+            Application.Current.MainPage = new NavigationPage(new Master());
+        }
+        public async void Register()
+        {
+            IsRefreshing = true;
+            if (string.IsNullOrWhiteSpace(Nombre) || string.IsNullOrWhiteSpace(Apellido) || string.IsNullOrWhiteSpace(Username) || string.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(Password))
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "Los campos no pueden quedar vacios", "Aceptar");
+                IsRefreshing = false;
+                return;
+            }
+            if (password != spassword)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "Las claves no coinciden", "Aceptar");
+                IsRefreshing = false;
+                return;
+            }
+
+            var valid = await RestClient.Post<userModel>("users/signupverify", new userModel() { email = Email });
+            if (valid.IsSuccess)
+            {
+                IsRefreshing = false;
+                var result = (codigoModel)valid.Result;
+                var code = Convert.ToString(result.codigo);
+                userModel user = new userModel();
+                user.apellido = Apellido;
+                user.nombre = Nombre;
+                user.username = Username;
+                user.email = Email;
+                user.pass = Password;
+                user.isActive = true;
+                await App.Current.MainPage.Navigation.PushAsync(new SignUpVerify(user, code));
+            }
+            else
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "El correo ya ha sido registrado", "Aceptar");
+            }
+        }
+        #endregion
+    }
+}
+
+
+----------------signupverifyxaml
+
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:Rounded="clr-namespace:Plugin.RoundedBorderControls;assembly=Plugin.RoundedBorderControls"
+             mc:Ignorable="d"
+             BackgroundColor="White"
+             Padding="10"
+             x:Class="Brot.Views.SignUpVerify">
+    <ContentPage.Content>
+        <StackLayout  VerticalOptions="CenterAndExpand">
+            <Label Text="Codigo enviado"
+				   FontSize="Large"
+				   TextColor="#031540"
+				   HorizontalOptions="CenterAndExpand" />
+            <Label Text="Ingresa el codigo que se ha enviado a tu correo"
+				   FontSize="Small"
+				   HorizontalTextAlignment="Center"
+				   TextColor="Gray"
+				   HorizontalOptions="Center" />
+            <Rounded:RoundedBorderEntry
+						Margin="20,10,20,5"
+						BorderColor="#031540"
+						BorderThickness="2"
+						CornerRadius="0"
+						Keyboard="Numeric"
+						Placeholder="Ingresa el codigo"
+						PlaceholderColor="Gray"
+						Text="{Binding Code}"
+						TextColor="#031540" />
+            <Button
+							BackgroundColor="#031540"
+							Command="{Binding Send}"
+							IsEnabled="{Binding IsEnabled}"
+							Text="Verificar"
+							TextColor="#fff"
+							VerticalOptions="Center"
+							CornerRadius="5"
+						 Margin="20,10,20,10"/>
+            <ActivityIndicator IsRunning="{Binding IsRefreshing}" VerticalOptions="End" HorizontalOptions="Center"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage> 
+
+----.class 
+using Brot.Models;
+using Brot.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
+
+namespace Brot.Views
+{
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class SignUpVerify : ContentPage
+    {
+        public SignUpVerify(userModel item, string code)
+        {
+            InitializeComponent();
+            BindingContext = new SignUpVerifyViewModel(item, code);
+        }
+    }
+} 

@@ -5,48 +5,26 @@ $(document).ready(function () {
 	load(1);
 
 	var divRequest = $(".div-request").text();
-
-	// top nav bar 
 	$("#navOrder").addClass('active');
-	// add order	
-	// top nav child bar 
 	$('#topNavAddOrder').addClass('active');
-
-	// order date picker
-	$("#orderDate").datepicker();
-
-	//Mostrar datos
-	$.ajax({
-		type: "POST",
-		url: "./php_action/showTmp.php",
-		beforeSend: function () {
-			$("#resultados").html("Mensaje: Cargando...");
-		},
-		success: function (data) {
-			$("#resultados").html(data);
-		}
-	});
-
-	// create order form function
-	$("#createOrderForm").unbind('submit').bind('submit', function () {
+	$("#date").datepicker();
+	$("#createSale").unbind('submit').bind('submit', function () {
 		var form = $(this);
 
 		$('.form-group').removeClass('has-error').removeClass('has-success');
 		$('.text-danger').remove();
 
-		var orderDate = $("#orderDate").val();
+		var date = $("#date").val();
 		var clientName = $("#clientName").val();
 		var subTotal = $("#subTotal").val();
-		var iva = $("#iva").val();
 		var total = $("#total").val();
-		var paymentStatus = $("#paymentStatus").val();
 
 		// form validation 
-		if (orderDate == "") {
-			$("#orderDate").after('<p class="text-danger"> Este campo es obligatorio </p>');
-			$('#orderDate').closest('.form-group').addClass('has-error');
+		if (date == "") {
+			$("#date").after('<p class="text-danger"> Este campo es obligatorio </p>');
+			$('#date').closest('.form-group').addClass('has-error');
 		} else {
-			$('#orderDate').closest('.form-group').addClass('has-success');
+			$('#date').closest('.form-group').addClass('has-success');
 		} // /else
 
 		if (clientName == "") {
@@ -61,30 +39,17 @@ $(document).ready(function () {
 		} else {
 			$('#subTotal').closest('.form-group').addClass('has-success');
 		} // /else
-		if (iva == "") {
-			$("#iva").after('<p class="text-danger"> Parece que no hay ningun producto </p>');
-			$('#iva').closest('.form-group').addClass('has-error');
-		} else {
-			$('#iva').closest('.form-group').addClass('has-success');
-		} // /else
 		if (total == 0.00) {
 			$("#total").after('<p class="text-danger"> Parece que no hay ningun producto </p>');
 			$('#total').closest('.form-group').addClass('has-error');
 		} else {
 			$('#total').closest('.form-group').addClass('has-success');
 		} // /else
-		if (paymentStatus == "") {
-			$("#paymentStatus").after('<p class="text-danger"> Este campo es obligatorio </p>');
-			$('#paymentStatus').closest('.form-group').addClass('has-error');
-		} else {
-			$('#paymentStatus').closest('.form-group').addClass('has-success');
-		} // /else
-
-		if (orderDate && clientName && subTotal && iva && total && paymentStatus) {
+		if (date && clientName && subTotal && total) {
 			$.ajax({
 				url: form.attr('action'),
 				type: form.attr('method'),
-				data: "orderDate=" + orderDate + "&&clientName=" + clientName + "&&subTotal=" + subTotal + "&&iva=" + iva + "&&total=" + total + "&&paymentStatus=" + paymentStatus,
+				data: "date=" + date + "&&clientName=" + clientName + "&&subTotal=" + subTotal + "&&total=" + total,
 				success: function (response) {
 					console.log(response);
 					$(".text-danger").remove();
@@ -121,5 +86,4 @@ function resetOrderForm() {
 			$("#resultados").html(datos);
 		}
 	});
-
 }

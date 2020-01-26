@@ -29,7 +29,7 @@ require_once '../includes/load.php';
      $numrows = $row['numrows'];
      $total_pages = ceil($numrows/$per_page);
      $reload = './sales.php';
-     $sql="SELECT sale_id, sale_date, client_name, sub_total, sale_discount, sale_total, payment_status FROM sales $sWhere LIMIT $offset,$per_page";
+     $sql="SELECT sale_id, sale_date, client_name, sub_total, sale_total, payment_status FROM sales $sWhere LIMIT $offset,$per_page";
      $query = $db->query($sql);
 
      if ($numrows > 0){
@@ -57,9 +57,9 @@ require_once '../includes/load.php';
 				if($row[6] == 1) { 		
 					$paymentStatus = "<label class='label label-success'>Pago completo</label>";
 				} else if($row[6] == 2) { 		
-					$paymentStatus = "<label class='label label-info'>Pago por adelantado</label>";
+					$paymentStatus = "<label class='label label-info'>No pagado</label>";
 				} else { 		
-					$paymentStatus = "<label class='label label-warning'>No pagado</label>";
+					$paymentStatus = "<label class='label label-warning'>Desconocido</label>";
 				} 
 
 				$countOrderItemSql = "SELECT quantity FROM sale_item WHERE sale_id = $orderId";

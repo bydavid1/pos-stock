@@ -15,11 +15,11 @@ function load(page) {
 		$.ajax({
 			url: './php_action/fetchAddProduct.php?action=ajax&page=' + page + '&q=' + q,
 			beforeSend: function (objeto) {
-				$('#loader').show();
+				//$('#loader').show();
 			},
 			success: function (data) {
 				$(".outer_div").html(data).fadeIn('slow');
-			    $('#loader').hide();
+			  //  $('#loader').hide();
 			}
 		})
 	} else {
@@ -27,11 +27,11 @@ function load(page) {
 		$.ajax({
 			url: './php_action/fetchCostumerData.php?action=ajax&page=' + num + '&q=' + v,
 			beforeSend: function (objeto) {
-				$('#loader').show();
+				//$('#loader').show();
 			},
 			success: function (data) {
 				$(".data").html(data).fadeIn('slow');
-				$('#loader').hide();
+			//	$('#loader').hide();
 			}
 		})
 	}

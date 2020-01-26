@@ -27,12 +27,12 @@ include 'modal/productsOrder.php';
     <!--/success-messages-->
 
 
-    <form class="form-horizontal" method="POST" action="php_action/createOrder.php" id="createOrderForm">
+    <form class="form-horizontal" method="POST" action="php_action/createSale.php" id="createOrderForm">
 
       <div class="form-group">
-        <label for="orderDate" class="col-sm-2 control-label">Fecha de venta</label>
+        <label for="Date" class="col-sm-2 control-label">Fecha de venta</label>
         <div class="col-sm-4">
-          <input type="text" class="form-control" id="orderDate" name="orderDate" autocomplete="off"
+          <input type="text" class="form-control" id="Date" name="Date" autocomplete="off"
             value="<?php echo date("m/d/Y");?>" />
         </div>
       </div>
@@ -140,7 +140,7 @@ include 'modal/productsOrder.php';
 
       <div class="form-group submitButtonFooter">
         <div class="col-sm-offset-2 col-sm-10">
-          <button type="submit" id="createOrderBtn" data-loading-text="Cargando..." class="btn btn-success"><i
+          <button type="submit" id="createSale" data-loading-text="Cargando..." class="btn btn-success"><i
               class="glyphicon glyphicon-ok-sign"></i> Agregar venta</button>
 
           <button type="button" class="btn btn-default" onclick="addRow()" id="addRowBtn"
@@ -158,6 +158,6 @@ include 'modal/productsOrder.php';
 
     <?php require_once 'layouts/footer.php'; ?>
 
-    <script src="custom/js/addOrder.js"></script>
+    <script src="custom/js/addSale.js"></script>
 
     <script src="custom/js/productsTable.js"></script>

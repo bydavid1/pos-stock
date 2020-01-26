@@ -5,24 +5,20 @@ $session_id= session_id();
 
 $valid['success'] = array('success' => false, 'messages' => array());
 
-  $orderDate = date('Y-m-d', strtotime($_POST['orderDate']));	
+  $orderDate = date('Y-m-d', strtotime($_POST['Date']));	
   $clientName = $_POST['clientName'];
-  $subTotalValue = $_POST['subTotal'];
-  $iva = $_POST['iva'];
+  $subTotalValue = $_POST['subTotal']; 
   $total = $_POST['total'];
-  $paymentStatus = $_POST['paymentStatus'];
-
 				
-	$sql = "INSERT INTO orders (order_date, client_name, sub_total, discount, total, paymentStatus, order_status) VALUES ('$orderDate', '$clientName',  '$subTotalValue', '$iva', '$total', '$paymentStatus', '1');";
+	$sql = "INSERT INTO orders (sale_date, client_name, sub_total, sale_total, payment_status, sale_active) VALUES ('$orderDate', '$clientName',  '$subTotalValue', '$total', '1', '1');";
 	$res = $connect->query($sql);
 	$order_id;
 	if($res > 0) {
 		$order_id = $connect->insert_id;
 		$insertOrder = true;
-	}else{
-		$insertOrder = false;
-	}
-
+	}else{  
+		$insertOrder = false;                     
+	}       
 
 	$data = "SELECT tmp.`quantity_tmp`, tmp.`product_id`,tmp.`rate_tmp`,tmp.`total_tmp`,product.`product_name` FROM tmp INNER JOIN product ON tmp.`product_id` = product.`product_id` WHERE tmp.session_id = '".$session_id."'";
    
